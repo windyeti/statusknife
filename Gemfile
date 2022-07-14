@@ -48,6 +48,8 @@ gem 'terser'
 gem 'delayed_job_active_record', '4.1.4'
 gem 'daemons', '1.3.1'
 gem 'whenever', require: false
+
+gem 'unicorn'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
