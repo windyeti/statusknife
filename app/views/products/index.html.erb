@@ -92,6 +92,7 @@
       <th>Название</th>
       <th>Актуальность InSales</th>
       <th>Актуальность Поставщик</th>
+      <th>QuantityStoreInsales</th>
       <th><%= sort_link(@search, :quantity, "Остаток") %></th>
       <th><%= sort_link(@search, :price, "Цена") %></th>
       <th>Поставщик</th>
@@ -113,6 +114,7 @@
         <td><%= link_to product.title, product.insales_link, target: '_blank' %> <%= link_to '<span class="oi oi-document"></span>'.html_safe, product, target: '_blank', class: "btn btn-info form-control-xs" %></td>
         <td><%= product.insales_check %></td>
         <td><%= product.check %></td>
+        <td><%= product.quantity_insales %></td>
         <td><%= product.quantity %></td>
         <td><%= product.price %></td>
         <!--        <td><%#= best_in_place product, :quantity, :as => :input %></td>-->
