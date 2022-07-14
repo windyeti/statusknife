@@ -6,9 +6,9 @@ every 1.day, :at => '04:00' do
   runner "ImportInsalesXmlJob.perform_later"
 end
 
-every 1.day, :at => '04:30' do
+every 1.day, :at => '14:30' do
   runner "CreateCsvPriceJob.perform_later"
 end
-every 1.day, :at => '05:00' do
+every 1.day, :at => '14:40' do
   runner "CreateCsvQuantityJob.perform_later"
 end
