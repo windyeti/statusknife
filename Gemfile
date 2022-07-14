@@ -40,6 +40,14 @@ gem 'slim-rails'
 gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'rest-client'
+gem 'will_paginate'
+gem 'ransack'
+gem 'best_in_place'
+gem 'jquery-ui-rails'
+gem 'terser'
+gem 'delayed_job_active_record', '4.1.4'
+gem 'daemons', '1.3.1'
+gem 'whenever', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -52,6 +60,14 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'#, '~> 1.1.0'
+  gem 'capistrano-rails-console'
+  gem 'capistrano-rvm'#, '~> 0.1.1'
+  gem 'capistrano3-unicorn'
+  gem 'capistrano3-delayed-job', '~> 1.0'
+  gem 'letter_opener'
 end
 
 group :test do

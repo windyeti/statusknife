@@ -1,0 +1,71 @@
+.row
+  h2.mt-3.mb-2.col.col-12= @product.title
+
+  .col-md-3
+    h5
+      span.text-muted Fid:
+      span.small<= @product.fid
+  .col-md-3
+    h5
+      span.text-muted Ссылка на страницу товара в InSales:
+      - if @product.insales_link.present?
+        span.small<= link_to "страница", @product.insales_link, target: '_blank'
+  .col-md-3
+    h5
+      span.text-muted Артикул:
+      span.small<= @product.sku
+  .col-md-3
+    h5
+      span.text-muted Поставщик:
+      span.small<= @product.vendor
+  .col-12
+    h5
+      span.text-muted Изображения от поставщика:
+      - if @product.images.present?
+        span.small<= @product.images.split(" ").map {|img| "<img style='max-width: 100px' src='#{img}'></img>"}.join("").html_safe
+  .col-12
+    .row
+      .col-md-2
+        h5
+          span.text-muted Категория:
+          span.small<= @product.cat
+      .col-md-2
+        h5
+          span.text-muted Подкатегория 1:
+          span.small<= @product.cat1
+      .col-md-2
+        h5
+          span.text-muted Подкатегория 2:
+          span.small<= @product.cat2
+      .col-md-2
+        h5
+          span.text-muted Подкатегория 3:
+          span.small<= @product.cat3
+      .col-md-2
+        h5
+          span.text-muted Подкатегория 4:
+          span.small<= @product.cat4
+  .col-md-2
+    h5
+      span.text-muted Цена:
+      span.small<= @product.price
+  .col-md-2
+    h5
+      span.text-muted Остаток:
+      span.small<= @product.quantity
+  .col-md-3
+    h5
+      span.text-muted ID товара в InSales:
+      span.small<= @product.insales_id
+  .col-md-3
+    h5
+      span.text-muted ID варианта в InSales:
+      span.small<= @product.insales_var_id
+  .col-md-3
+    h5
+      span.text-muted Актуальность у поставщика:
+      span.small<= @product.check
+  .col-md-3
+    h5
+      span.text-muted Актуальность в InSales:
+      span.small<= @product.insales_check

@@ -1,0 +1,132 @@
+<div class="row mb-2 mr-0 ml-0 align-items-center" id="filter_menu">
+  <h3 class="mr-2">Товары</h3>
+
+  <div class="col-md-4 mr-1">
+    <span class="align-middle"><small>Всего: <%= Product.product_all_size %></small></span>
+    <span class="align-middle"><small>Отфильтровано: <%=@products.count%></small></span><br>
+    <span class="align-middle"><small>Больше нуля: <%= Product.product_qt_not_null_size %></small></span><br>
+<!--    <span class="align-middle">-->
+<!--      <small>-->
+<!--        Активных:-->
+        <%# count_active = Product.where(deactivated: false).size %>
+<!--        <span id="active_products_count" class=<%#= "product_count_over_limit" if count_active > 40000 %> > <%#= count_active %> </span>-->
+<!--      </small>-->
+<!--    </span>-->
+  </div>
+  <div class="col-">
+    <div class="col- ">
+      <div class="dropdown">
+        <a class="btn btn-info dropdown-toggle form-control-xs" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Действия
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <%= link_to "Dpo Update", dpo_update_products_path,
+                       remote: true,
+                       class: "btn-primary btn form-control-xs" %>
+          <%= link_to "Import Insales", import_insales_xml_products_path,
+                       remote: true,
+                       class: "btn-primary btn form-control-xs" %>
+          <%= link_to "Create Csv Price", create_csv_price_products_path,
+                       remote: true,
+                       class: "btn-primary btn form-control-xs" %>
+          <%= link_to '<span class="oi oi-data-transfer-download"></span>'.html_safe, "/product_output_price.csv", class: "btn-secondary btn form-control-xs" %>
+          <%= link_to "Create Csv Quantity", create_csv_quantity_products_path,
+                       remote: true,
+                       class: "btn-primary btn form-control-xs" %>
+          <%= link_to '<span class="oi oi-data-transfer-download"></span>'.html_safe, "/product_output_quantity.csv", class: "btn-secondary btn form-control-xs" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= search_form_for @search, html: {class: 'form-inline'}  do |f|%>
+    <% value_vendor = @search.vendor_eq %>
+    <%= f.select :vendor_eq, options_from_collection_for_select(Product::VENDOR, :first, :last , selected: value_vendor), {}, {class: "form-control form-control-xs" + addition_class(:vendor_eq)} %>
+
+    <% value_insales_check = @search.insales_check_eq %>
+    <%= f.select :insales_check_eq, options_from_collection_for_select(Product::INSALESID, :first, :last , selected: value_insales_check), {}, {class: 'form-control form-control-xs' + addition_class(:insales_check_eq)} %>
+    <%= f.search_field :title_or_sku_cont, placeholder: 'Название, Артикул', class: "form-control form-control-xs" + addition_class(:title_or_sku_cont) %>
+    <%= f.search_field :quantity_eq, placeholder: 'остаток', class: "form-control form-control-xs" + addition_class(:quantity_eq) %>
+    <%= f.search_field :quantity_not_eq, placeholder: 'остаток не равен', class: "form-control form-control-xs" + addition_class(:quantity_not_eq) %>
+    <%= f.search_field :quantity_insales_eq, placeholder: 'остаток не равен', class: "form-control form-control-xs" + addition_class(:quantity_not_eq) %>
+
+    <div class="form-group button_group">
+      <%= f.search_field :price_gteq, placeholder: 'Цена от', class: "form-control form-control-xs" + addition_class(:price_gteq) %>
+      <%= f.search_field :price_lteq, placeholder: 'Цена до', class: "form-control form-control-xs" + addition_class(:price_lteq) %>
+    </div>
+    <% value_check = @search.check_eq %>
+    <%= f.select :check_eq, options_from_collection_for_select(Product::STATUS_DISTRIBUTOR, :first, :last , selected: value_check), {}, {class: "form-control form-control-xs mr-2" + addition_class(:check_eq) } %>
+
+    <span class="form-group button_group">
+      <% f.submit 'Поиск', class: 'btn btn-info' %>
+      <%= button_tag(type: 'submit', :class => "btn btn-info form-control-xs") do %><span class="oi oi-magnifying-glass"></span><% end %>
+      <%= link_to '<span class="oi oi-reload"></span>'.html_safe, products_path, class: 'btn btn-outline-dark form-control-xs' %>
+    </span>
+    <span class="form-group button_group">
+      <%= link_to '<span class="oi oi-list"></span>CSV'.html_safe, products_path(otchet_type: 'csv_selected', q: @params_q_to_csv), remote: true, title: "Создать файл с выбранными товарами", class: 'btn btn-outline-dark form-control-xs'%>
+      <%= link_to "Скачать CSV Selected", "/product_selected.csv", class: "btn-secondary btn form-control-xs" %>
+    </span>
+<% end %>
+</div>
+<div class="table-responsive" id="container_for_table_with_data">
+  <table class="table table-hover table-condensed table-sm">
+    <thead class="thead-light">
+    <tr>
+      <!--      <th>-->
+      <!--        <div>-->
+      <!--          <span class="btn btn-danger form-control-xs" id="deactivatedAll">-->
+      <!--            <span class="oi oi-ban"></span>-->
+      <!--          </span>-->
+      <!--          <span class="btn btn-success form-control-xs" id="showAll">-->
+      <!--            <span class="oi oi-eye"></span>-->
+      <!--          </span>-->
+      <!--          <span class="btn btn-danger form-control-xs" id="deleteAll">-->
+      <!--            <span class="oi oi-x"></span>-->
+      <!--          </span>-->
+      <!--        </div>-->
+      <%#= check_box_tag 'selectAll', value = 'selectAll'%>
+      <!--      </th>-->
+      <!--      <th>ID</th>-->
+      <!--      <th>ID в Товарах</th>-->
+      <th>Артикул</th>
+      <th>Название</th>
+      <th>Актуальность InSales</th>
+      <th>Актуальность Поставщик</th>
+      <th><%= sort_link(@search, :quantity, "Остаток") %></th>
+      <th><%= sort_link(@search, :price, "Цена") %></th>
+      <th>Поставщик</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody id="products_table">
+    <% @products.each do |product| %>
+      <tr class="product_id_<%= product.id %> <%="exist_in_insales" if product.insales_var_id.present? %>">
+        <!--        <td><%#=check_box_tag "product_ids[]", product.id%></td>-->
+        <!--        <td><%#= product.id %></td>-->
+        <!--        <td>-->
+        <%# product.products.each do |product| %>
+        <%#= link_to product.id, products_path(q: {id_eq: product.id}) %>
+        <%# end %>
+        <!--        </td>-->
+        <td><%= product.sku %></td>
+        <td><%= link_to product.title, product.insales_link, target: '_blank' %> <%= link_to '<span class="oi oi-document"></span>'.html_safe, product, target: '_blank', class: "btn btn-info form-control-xs" %></td>
+        <td><%= product.insales_check %></td>
+        <td><%= product.check %></td>
+        <td><%= product.quantity %></td>
+        <td><%= product.price %></td>
+        <!--        <td><%#= best_in_place product, :quantity, :as => :input %></td>-->
+        <!--        <td><%#= best_in_place product, :quantity_add, :as => :input %></td>-->
+        <!--        <td><%#= best_in_place product, :price, :as => :input %></td>-->
+        <td><%= product.vendor %></td>
+        <td><%= link_to '<span class="oi oi-x"></span>'.html_safe, product, method: :delete, data: { type: :js, confirm: "Удалить? #{product.title}" }, remote: true, class: "btn btn-danger form-control-xs" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="digg_pagination mt-4 mb-4">
+  <%= will_paginate @products %>
+</div>
+</div>
+

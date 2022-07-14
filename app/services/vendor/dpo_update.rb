@@ -7,7 +7,8 @@ class Services::Vendor::DpoUpdate
 
   def call
     # Обнулить остатки всем товарам поставщика
-    # Product.where(vendor: "Dpo").each {|product| product.update(quantity: 0, check: false)}
+    Product.where(vendor: "Dpo").each {|product| product.update(quantity: 0, check: false)}
+
     get_categories
     get_products
   end
@@ -45,31 +46,72 @@ class Services::Vendor::DpoUpdate
       # p products_url
       # p category_url
       # p products_url.count
-      create_update_product(products_url, category_name)
+      create_or_update_product(products_url, category_name)
     end
   end
 
-  def create_update_product(products_url, category_name)
+  def create_or_update_product(products_url, category_name)
     products_url.each do |product_url|
       doc = get_doc(product_url)
 
-      sku = doc.at("qqqqqqqq").text.strip
-      fid = "#{sku}___dpo"
-      product = Tov.find_by(fid: fid)
+      p manifacture_and_sku = get_manifacture_and_sku(doc)
 
-      data = {
+      sku = manifacture_and_sku[:sku]
+      next if sku.nil?
+
+      fid = "#{sku}___dpo"
+      product = Product.find_by(fid: fid)
+
+      manifacture = manifacture_and_sku[:manifacture]
+      title = doc.at("h1.title").text.strip
+      images = doc.at(".product_page .left .image img")['src'] rescue nil
+      price = doc.at(".variants .price").text.strip.remove(/₽|\s/) rescue 0
+      quantity = price == 0 ? 0 : nil
+
+
+      data_update = {
+        price: price,
+        quantity: quantity,
         check: true
+      }
+
+      data_create = {
+        fid: fid,
+        title: title,
+        sku: sku,
+        link: product_url,
+        vendor: "Dpo",
+        manifacture: manifacture,
+        images: images,
+        cat: "Dpo",
+        cat1: category_name,
+        price: price,
+        quantity: quantity,
+        check: true, # explicitly
+        insales_check: false # explicitly
       }
 
       if product.present?
         next if product.check
-        product.update(data)
+        product.update(data_update)
         next
       else
-        create_product(data)
+        create_product(data_create)
       end
-
     end
+  end
+
+  def get_manifacture_and_sku(doc)
+    result = {}
+    doc_rows = doc.css(".info .row")
+    doc_rows.each do |doc_row|
+      name = doc_row.at(".name").text.strip
+      value = doc_row.at(".value").text.strip
+
+      result[:manifacture] = value if name == "Производитель:"
+      result[:sku] = value if name == "Артикул:"
+    end
+    result
   end
 
   def get_pagination(doc)

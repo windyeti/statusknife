@@ -13,6 +13,11 @@
 //= require rails-ujs
 //= require jquery
 //= require jquery_ujs
+
+//= require best_in_place
+//= require jquery-ui
+//= require best_in_place.jquery-ui
+
 //= require activestorage
 //= require popper
 //= require bootstrap
@@ -20,3 +25,8 @@
 
 //= require_self
 //= require_tree .
+
+$(document).ready(function() {
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
+});

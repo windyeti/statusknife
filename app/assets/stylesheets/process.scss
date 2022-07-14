@@ -1,0 +1,44 @@
+.status_process {
+  position: relative;
+  height: 24px;
+  font-size: 60%;
+  color: #fff;
+  .close {
+    position: absolute;
+    font-size: 120%;
+    right: 6px;
+    top: 3px;
+    color: #fff;
+  }
+  .notification_message {
+    padding: 5px;
+  }
+  .message_process {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+  .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: $info;
+    border-radius: 0;
+  }
+  &.start {
+    background: red;
+  }
+  &.finish {
+    background: green;
+  }
+}
+.deactivated {
+  color: #b7b7b7;
+  a {
+    color: #b7b7b7;
+  }
+}
