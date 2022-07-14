@@ -47,7 +47,7 @@
     <%= f.search_field :title_or_sku_cont, placeholder: 'Название, Артикул', class: "form-control form-control-xs" + addition_class(:title_or_sku_cont) %>
     <%= f.search_field :quantity_eq, placeholder: 'остаток', class: "form-control form-control-xs" + addition_class(:quantity_eq) %>
     <%= f.search_field :quantity_not_eq, placeholder: 'остаток не равен', class: "form-control form-control-xs" + addition_class(:quantity_not_eq) %>
-    <%= f.search_field :quantity_insales_eq, placeholder: 'остаток не равен', class: "form-control form-control-xs" + addition_class(:quantity_not_eq) %>
+    <%= f.search_field :quantity_insales_eq, placeholder: 'остаток в инсайлс', class: "form-control form-control-xs" + addition_class(:quantity_not_eq) %>
 
     <div class="form-group button_group">
       <%= f.search_field :price_gteq, placeholder: 'Цена от', class: "form-control form-control-xs" + addition_class(:price_gteq) %>

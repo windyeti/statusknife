@@ -9,7 +9,7 @@ class Services::CreateCsvQuantity
   }.freeze
 
   def call
-    @file_name_output = "#{Rails.public_path}/product_output_quntity.csv"
+    @file_name_output = "#{Rails.public_path}/product_output_quantity.csv"
     @tovs = Product.where(quantity_insales: nil).where.not(insales_var_id: nil).order(:id)
     check_previous_files_csv
     create_csv_output(PRODUCT_STRUCTURE)

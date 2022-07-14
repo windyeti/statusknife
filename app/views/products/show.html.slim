@@ -18,11 +18,11 @@
     h5
       span.text-muted Поставщик:
       span.small<= @product.vendor
-  .col-12
-    h5
-      span.text-muted Изображения от поставщика:
-      - if @product.images.present?
-        span.small<= @product.images.split(" ").map {|img| "<img style='max-width: 100px' src='#{img}'></img>"}.join("").html_safe
+  / .col-12
+  /   h5
+  /     span.text-muted Изображения от поставщика:
+  /     - if @product.images.present?
+  /       span.small<= @product.images.split(" ").map {|img| "<img style='max-width: 100px' src='#{img}'></img>"}.join("").html_safe
   .col-12
     .row
       .col-md-2
