@@ -5,7 +5,6 @@ class Services::CreateCsvPrice
     insales_var_id: 'ID варианта',
     title: 'Название товара',
     price: 'Цена продажи',
-    check: 'Параметр: Статус у поставщика',
   }.freeze
 
   def call
