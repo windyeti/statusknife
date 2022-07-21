@@ -14,7 +14,7 @@ class Services::ImportInsalesXml
       fid = "#{sku}___dpo"
       quantity_store_insales = pr.xpath("quantity_store_insales").text
 
-      pp data = {
+      data = {
         insales_link: pr.xpath("url").text,
         insales_id: pr["group_id"].to_i,
         insales_var_id: pr["id"].to_i,
