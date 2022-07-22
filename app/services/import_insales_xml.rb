@@ -2,7 +2,15 @@ class Services::ImportInsalesXml
   def call
     puts '=====>>>> СТАРТ InSales XML '+Time.now.to_s
 
-    Product.all.each {|product| product.update(insales_check: false)}
+    Product.all.each do |product|
+      product.update(
+        insales_link: nil,
+        insales_id: nil,
+        insales_var_id: nil,
+        quantity_insales: true,
+        insales_check: false
+      )
+    end
 
     uri = "https://statusknife.ru/marketplace/101644.xml"
     response = RestClient.get uri, :accept => :xml, :content_type => "application/xml"
