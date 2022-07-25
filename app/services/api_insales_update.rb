@@ -1,12 +1,13 @@
 require 'rest-client'
 
-class Services::ApiInsalesQuantity
+class Services::ApiInsalesUpdate
   def call
     Product.where(quantity_insales: nil).where.not(insales_var_id: nil).find_in_batches(batch_size: 100) do |products|
       vars = products.map do |product|
         {
           id: product.insales_var_id,
-          quantity: product.quantity
+          price: product.price,
+          quantity: product.quantity,
         }
       end
       update_product(vars)

@@ -6,10 +6,9 @@ Rails.application.routes.draw do
     collection do
       get :dpo_update
       get :import_insales_xml
-      get :create_csv_price
-      get :create_csv_quantity
-      get :api_insales_price
-      get :api_insales_quantity
+      # get :create_csv_price
+      # get :create_csv_quantity
+      get :api_insales_update
     end
   end
 

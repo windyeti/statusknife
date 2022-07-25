@@ -70,37 +70,29 @@ class ProductsController < ApplicationController
     end
   end
 
-  def create_csv_price
-    CreateCsvPriceJob.perform_later
+  def api_insales_update
+    ApiInsalesUpdateJob.perform_later
     respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Запущено создание Сsv Price' }
-      format.json { render json: {status: "okey", message: "Запущено создание Сsv Price"} }
+      format.html { redirect_to products_url, notice: 'Запущено по API обновление в магазине' }
+      format.json { render json: {status: "okey", message: "Запущено по API обновление в магазине"} }
     end
   end
 
-  def create_csv_quantity
-    CreateCsvQuantityJob.perform_later
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Запущено создание Сsv Quantity' }
-      format.json { render json: {status: "okey", message: "Запущено создание Сsv Quantity"} }
-    end
-  end
-
-  def api_insales_price
-    ApiInsalesPriceJob.perform_later
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Запущено по API обновление Price в магазине' }
-      format.json { render json: {status: "okey", message: "Запущено по API обновление Price в магазине"} }
-    end
-  end
-
-  def api_insales_quantity
-    ApiInsalesQuantityJob.perform_later
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Запущено по API обновление Quantity в магазине' }
-      format.json { render json: {status: "okey", message: "Запущено по API обновление Quantity в магазине"} }
-    end
-  end
+  # def create_csv_price
+  #   CreateCsvPriceJob.perform_later
+  #   respond_to do |format|
+  #     format.html { redirect_to products_url, notice: 'Запущено создание Сsv Price' }
+  #     format.json { render json: {status: "okey", message: "Запущено создание Сsv Price"} }
+  #   end
+  # end
+  #
+  # def create_csv_quantity
+  #   CreateCsvQuantityJob.perform_later
+  #   respond_to do |format|
+  #     format.html { redirect_to products_url, notice: 'Запущено создание Сsv Quantity' }
+  #     format.json { render json: {status: "okey", message: "Запущено создание Сsv Quantity"} }
+  #   end
+  # end
 
   private
 

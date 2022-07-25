@@ -26,20 +26,9 @@
           <%= link_to "Import Insales", import_insales_xml_products_path,
                        remote: true,
                        class: "btn-primary btn form-control-xs" %>
-          <%= link_to "Update API Insales Price", api_insales_price_products_path,
+          <%= link_to "Update API Insales", api_insales_update_products_path,
                        remote: true,
                        class: "btn-primary btn form-control-xs" %>
-          <%= link_to "Update API Insales Quantity", api_insales_quantity_products_path,
-                       remote: true,
-                       class: "btn-primary btn form-control-xs" %>
-          <%= link_to "Create Csv Price", create_csv_price_products_path,
-                       remote: true,
-                       class: "btn-primary btn form-control-xs" %>
-          <%= link_to '<span class="oi oi-data-transfer-download"></span>'.html_safe, "/product_output_price.csv", class: "btn-secondary btn form-control-xs" %>
-          <%= link_to "Create Csv Quantity", create_csv_quantity_products_path,
-                       remote: true,
-                       class: "btn-primary btn form-control-xs" %>
-          <%= link_to '<span class="oi oi-data-transfer-download"></span>'.html_safe, "/product_output_quantity.csv", class: "btn-secondary btn form-control-xs" %>
         </div>
       </div>
     </div>
@@ -69,7 +58,7 @@
     </span>
     <span class="form-group button_group">
       <%= link_to '<span class="oi oi-list"></span>CSV'.html_safe, products_path(otchet_type: 'csv_selected', q: @params_q_to_csv), remote: true, title: "Создать файл с выбранными товарами", class: 'btn btn-outline-dark form-control-xs'%>
-      <%= link_to "Скачать CSV Selected", "/product_selected.csv", class: "btn-secondary btn form-control-xs" %>
+      <%= link_to '<span class="oi oi-data-transfer-download"></span>'.html_safe, "/product_selected.csv", class: "btn-secondary btn form-control-xs" %>
     </span>
 <% end %>
 </div>
@@ -97,7 +86,7 @@
       <th>Артикул</th>
       <th>Название</th>
       <th>Актуальность InSales</th>
-      <th>Актуальность Поставщик</th>
+      <th>У поставщика есть артикул</th>
       <th>QuantityStoreInsales</th>
       <th><%= sort_link(@search, :quantity, "Остаток") %></th>
       <th><%= sort_link(@search, :price, "Цена") %></th>

@@ -7,8 +7,5 @@ every 1.day, :at => '03:00' do
 end
 
 every 1.day, :at => '04:00' do
-  runner "ApiInsalesPriceJob.perform_later"
-end
-every 1.day, :at => '05:00' do
-  runner "ApiInsalesQuantityJob.perform_later"
+  runner "ApiInsalesUpdateJob.perform_later"
 end

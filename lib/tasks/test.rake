@@ -1,8 +1,9 @@
 namespace :p do
   task t: :environment do
     include Utils
-    doc = get_doc("https://www.d-po.ru/products/nozh-artisan-cutlery-1808p-bkc-zumwalt")
-    p get_manifacture_and_sku(doc)
+    doc = get_doc("https://www.d-po.ru/products/noj_SOG_model_MC-02_SOGfari_Machete_-_18")
+    p price = doc.at(".variants .price").text.strip.remove(/₽|\s/) rescue 0
+    p quantity = price == 0 ? 0 : nil
   end
   # def get_manifacture_and_sku(doc)
   #   result = {}

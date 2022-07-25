@@ -7,7 +7,7 @@ class Services::Vendor::DpoUpdate
 
   def call
     # Обнулить остатки всем товарам поставщика
-    Product.where(vendor: "Dpo").each {|product| product.update(quantity: 0, check: false)}
+    Product.where(vendor: "Dpo").each {|product| product.update(price: 0, quantity: 0, check: false)}
 
     get_categories
     get_products
