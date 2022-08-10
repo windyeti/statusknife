@@ -12,6 +12,11 @@
         span.small<= link_to "страница", @product.insales_link, target: '_blank'
   .col-md-3
     h5
+      span.text-muted Ссылка на страницу товара у Поставщика:
+      - if @product.link.present?
+        span.small<= link_to "страница", @product.link, target: '_blank'
+  .col-md-3
+    h5
       span.text-muted Артикул:
       span.small<= @product.sku
   .col-md-3

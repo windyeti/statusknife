@@ -9,3 +9,7 @@ end
 every 1.day, :at => '04:00' do
   runner "ApiInsalesUpdateJob.perform_later"
 end
+
+every 1.day, :at => '05:00' do
+  runner "ApiInsalesPriceJob.perform_later"
+end

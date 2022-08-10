@@ -8,7 +8,8 @@ Rails.application.routes.draw do
       get :import_insales_xml
       # get :create_csv_price
       # get :create_csv_quantity
-      get :api_insales_update
+      get :api_insales_price
+      get :api_insales_quantity
     end
   end
 

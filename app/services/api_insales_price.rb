@@ -4,6 +4,7 @@ class Services::ApiInsalesPrice
   def call
     Product.where.not(insales_var_id: nil).find_in_batches(batch_size: 100) do |products|
       vars = products.map do |product|
+        next if product.price == 0 && product.quantity_insales
         {
           id: product.insales_var_id,
           price: product.price

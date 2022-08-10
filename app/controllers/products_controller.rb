@@ -70,11 +70,19 @@ class ProductsController < ApplicationController
     end
   end
 
-  def api_insales_update
-    ApiInsalesUpdateJob.perform_later
+  def api_insales_price
+    ApiInsalesPriceJob.perform_later
     respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Запущено по API обновление в магазине' }
-      format.json { render json: {status: "okey", message: "Запущено по API обновление в магазине"} }
+      format.html { redirect_to products_url, notice: 'Запущено по API обновление Price в магазине' }
+      format.json { render json: {status: "okey", message: "Запущено по API обновление Price в магазине"} }
+    end
+  end
+
+  def api_insales_quantity
+    ApiInsalesQuantityJob.perform_later
+    respond_to do |format|
+      format.html { redirect_to products_url, notice: 'Запущено по API обновление Quantity в магазине' }
+      format.json { render json: {status: "okey", message: "Запущено по API обновление Quantity в магазине"} }
     end
   end
 
