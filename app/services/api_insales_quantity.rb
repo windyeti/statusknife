@@ -40,6 +40,7 @@ class Services::ApiInsalesQuantity
         puts 'sleep 1 error 503'
       else
         puts 'UNKNOWN ERROR'
+        p response.code
       end
     end
   end

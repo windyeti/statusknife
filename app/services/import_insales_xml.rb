@@ -13,7 +13,16 @@ class Services::ImportInsalesXml
     end
 
     uri = "https://statusknife.ru/marketplace/101644.xml"
-    response = RestClient.get uri, :accept => :xml, :content_type => "application/xml"
+
+    # response = RestClient.get uri, :accept => :xml, :content_type => "application/xml"
+
+    resource = RestClient::Resource.new(
+      uri,
+      :timeout => -1,
+      :open_timeout => -1
+    )
+    response = resource.get
+
     data = Nokogiri::XML(response)
     offers = data.xpath("//offer")
 
