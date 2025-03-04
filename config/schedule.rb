@@ -31,6 +31,12 @@ every 1.day, :at => '12:00' do
   runner "ApiInsalesPriceJob.perform_later"
 end
 
+# ------------------- Check Size Log
+#
+every 1.day, :at => '13:00' do
+  runner "CheckSizeLogJob.perform_later"
+end
+
 # -------------------
 every 1.day, :at => '16:00' do
   runner "DpoUpdateJob.perform_later"
