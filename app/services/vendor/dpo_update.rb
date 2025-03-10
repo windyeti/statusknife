@@ -66,7 +66,7 @@ class Services::Vendor::DpoUpdate
       title = doc.at("h1.title").text.strip
       images = doc.at(".product_page .left .image img")['src'] rescue nil
       price = doc.at(".variants .price").text.strip.remove(/₽|\s/) rescue 0
-      quantity = price == 0 ? 0 : nil
+      quantity = price == 0 ? 0 : 99999
 
 
       data_update = {
