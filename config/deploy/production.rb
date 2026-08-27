@@ -5,6 +5,7 @@
 
 server "151.248.125.61", user: "deploy", roles: %w{app db web}, primary: true
 set :rails_env, :production
+set :keep_releases, 5
 
 
 # Custom SSH Options
