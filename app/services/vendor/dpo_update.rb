@@ -18,6 +18,15 @@ class Services::Vendor::DpoUpdate
 
   def get_categories
     doc = get_doc(@domain_url)
+    if doc.present?
+      File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
+        file.write "------TRUE-----"
+      end
+    else
+      File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
+        file.write "----FALSE----"
+      end
+    end
     @categories = doc.css("#brands_menu li a").map do |a|
       {
         name: a.text.strip,
@@ -91,9 +100,7 @@ class Services::Vendor::DpoUpdate
         check: true, # explicitly
         insales_check: false # explicitly
       }
-      File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-        file.write "data_create\ndata_update\n"
-      end
+
 
       # if product.present?
       #   next if product.check
