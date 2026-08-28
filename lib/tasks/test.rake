@@ -31,7 +31,6 @@ namespace :custom_tasks do
 
 end
 
-
 def get_cat(doc, url)
   doc.css("#brands_menu li a").map do |a|
     {
