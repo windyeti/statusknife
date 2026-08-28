@@ -69,12 +69,12 @@ class Services::Vendor::DpoUpdate
       quantity = price == 0 ? 0 : 99999
 
 
-      p data_update = {
+      data_update = {
         price: price,
         quantity: quantity,
         check: true
       }
-
+Rails.logger.debug "--------------- #{data_update}"
       data_create = {
         fid: fid,
         title: title,
