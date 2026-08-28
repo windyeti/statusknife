@@ -1,11 +1,19 @@
-namespace :p do
+namespace :custom_tasks do
   desc "Print parse cats"
-  task t: :environment do
-    include Utils
-    doc = get_doc("https://www.d-po.ru/products/noj_SOG_model_MC-02_SOGfari_Machete_-_18")
-    p price = doc.at(".variants .price").text.strip.remove(/₽|\s/) rescue 0
-    p quantity = price == 0 ? 0 : nil
+  task rc: :environment do
+    url = "https://www.d-po.ru"
+    doc = Nokogiri::HTML(RestClient::Request.execute(:url => url, :timeout => 100, :method => :get, :verify_ssl => false))
+
+    cats = get_cat(doc, url)
+    Rails.logger.info cats
+    p cats
   end
+  # task t: :environment do
+  #   include Utils
+  #   doc = get_doc("https://www.d-po.ru/products/noj_SOG_model_MC-02_SOGfari_Machete_-_18")
+  #   p price = doc.at(".variants .price").text.strip.remove(/₽|\s/) rescue 0
+  #   p quantity = price == 0 ? 0 : nil
+  # end
   # def get_manifacture_and_sku(doc)
   #   result = {}
   #   p doc_rows = doc.at(".info").text
@@ -19,20 +27,16 @@ namespace :p do
   #   end
   #   result
   # end
-  task rc: :environment do
-    url = "https://www.d-po.ru"
-    doc = Nokogiri::HTML(RestClient::Request.execute(:url => url, :timeout => 100, :method => :get, :verify_ssl => false))
 
-    cats = get_cat(doc, url)
-    Rails.logger.info cats
-  end
 
-  def get_cat(doc, url)
-    doc.css("#brands_menu li a").map do |a|
-      {
-        name: a.text.strip,
-        url: "#{url}/#{a['href']}"
-      }
-    end
+end
+
+
+def get_cat(doc, url)
+  doc.css("#brands_menu li a").map do |a|
+    {
+      name: a.text.strip,
+      url: "#{url}/#{a['href']}"
+    }
   end
 end
