@@ -1,4 +1,5 @@
 namespace :p do
+  desc "Print parse cats"
   task t: :environment do
     include Utils
     doc = get_doc("https://www.d-po.ru/products/noj_SOG_model_MC-02_SOGfari_Machete_-_18")
@@ -23,7 +24,7 @@ namespace :p do
     doc = Nokogiri::HTML(RestClient::Request.execute(:url => url, :timeout => 100, :method => :get, :verify_ssl => false))
 
     cats = get_cat(doc, url)
-    p cats
+    Rails.logger.info cats
   end
 
   def get_cat(doc, url)
