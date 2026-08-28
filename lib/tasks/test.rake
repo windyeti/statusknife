@@ -18,4 +18,20 @@ namespace :p do
   #   end
   #   result
   # end
+  task rc: :environment do
+    url = "https://www.d-po.ru"
+    doc = Nokogiri::HTML(RestClient::Request.execute(:url => url, :timeout => 100, :method => :get, :verify_ssl => false))
+
+    cats = get_cat(doc, url)
+    p cats
+  end
+
+  def get_cat(doc, url)
+    doc.css("#brands_menu li a").map do |a|
+      {
+        name: a.text.strip,
+        url: "#{url}/#{a['href']}"
+      }
+    end
+  end
 end
