@@ -1,8 +1,8 @@
 module Utils
   def get_doc(url)
     category_url = URI.escape(url)
-    # Nokogiri::HTML(RestClient::Request.execute(:url => category_url, :timeout => 100, :method => :get, :verify_ssl => false))
-    response = RestClient.get(category_url)
+    Nokogiri::HTML(RestClient::Request.execute(:url => category_url, :timeout => -1, :method => :get, :verify_ssl => false))
+    # response = RestClient.get(category_url)
     # begin
     # rescue SocketError => e
     #   Rails.logger.error "Network/DNS Error: #{e.message}"
@@ -12,6 +12,6 @@ module Utils
     # rescue StandardError => e
     #   Rails.logger.error "Something else went wrong: #{e.message}"
     # end
-    Nokogiri::HTML(response)
+    # Nokogiri::HTML(response)
   end
 end
