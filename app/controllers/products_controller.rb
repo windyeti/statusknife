@@ -55,14 +55,7 @@ class ProductsController < ApplicationController
   end
 
   def dpo_update
-    File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-      file.write "------START 1-----"
-    end
-    Services::Vendor::DpoUpdate.new.call
-    File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-      file.write "------START 2-----"
-    end
-    # DpoUpdateJob.perform_later
+    DpoUpdateJob.perform_later
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Запущен апдейт товаров от апоставщика Dpo' }
       format.json { render json: {status: "okey", message: "Запущен апдейт товаров от апоставщика Dpo"} }

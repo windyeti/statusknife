@@ -2,8 +2,7 @@ class Services::Vendor::DpoUpdate
   include Utils
 
   def initialize
-    @domain_url = "https://77.222.61.31"
-    # @domain_url = "https://www.d-po.ru"
+    @domain_url = "https://www.d-po.ru"
   end
 
   def call
@@ -79,13 +78,13 @@ class Services::Vendor::DpoUpdate
       quantity = price == 0 ? 0 : 99999
 
 
-      p data_update = {
+      data_update = {
         price: price,
         quantity: quantity,
         check: true
       }
 
-      p data_create = {
+      data_create = {
         fid: fid,
         title: title,
         sku: sku,
@@ -102,13 +101,13 @@ class Services::Vendor::DpoUpdate
       }
 
 
-      # if product.present?
-      #   next if product.check
-      #   product.update(data_update)
-      #   next
-      # else
-      #   create_product(data_create)
-      # end
+      if product.present?
+        next if product.check
+        product.update(data_update)
+        next
+      else
+        create_product(data_create)
+      end
     end
   end
 
