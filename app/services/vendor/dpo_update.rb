@@ -2,7 +2,8 @@ class Services::Vendor::DpoUpdate
   include Utils
 
   def initialize
-    @domain_url = "https://www.d-po.ru"
+    @domain_url = "https://77.222.61.31"
+    # @domain_url = "https://www.d-po.ru"
   end
 
   def call
@@ -91,13 +92,13 @@ class Services::Vendor::DpoUpdate
         insales_check: false # explicitly
       }
 
-      if product.present?
-        next if product.check
-        product.update(data_update)
-        next
-      else
-        create_product(data_create)
-      end
+      # if product.present?
+      #   next if product.check
+      #   product.update(data_update)
+      #   next
+      # else
+      #   create_product(data_create)
+      # end
     end
   end
 
