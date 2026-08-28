@@ -91,6 +91,9 @@ class Services::Vendor::DpoUpdate
         check: true, # explicitly
         insales_check: false # explicitly
       }
+      File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
+        file.write "data_create\ndata_update\n"
+      end
 
       # if product.present?
       #   next if product.check
