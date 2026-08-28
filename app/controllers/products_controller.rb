@@ -55,8 +55,7 @@ class ProductsController < ApplicationController
   end
 
   def dpo_update
-    Services::Vendor::DpoUpdate.new.call
-    # DpoUpdateJob.perform_later
+    DpoUpdateJob.perform_later
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Запущен апдейт товаров от апоставщика Dpo' }
       format.json { render json: {status: "okey", message: "Запущен апдейт товаров от апоставщика Dpo"} }

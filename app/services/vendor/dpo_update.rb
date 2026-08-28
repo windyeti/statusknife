@@ -74,7 +74,7 @@ class Services::Vendor::DpoUpdate
         quantity: quantity,
         check: true
       }
-Rails.logger.debug "--------------- #{data_update}"
+
       data_create = {
         fid: fid,
         title: title,
