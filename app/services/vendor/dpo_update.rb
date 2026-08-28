@@ -69,7 +69,7 @@ class Services::Vendor::DpoUpdate
       quantity = price == 0 ? 0 : 99999
 
 
-      data_update = {
+      p data_update = {
         price: price,
         quantity: quantity,
         check: true
