@@ -1,12 +1,13 @@
 module Utils
   def get_doc(url)
     category_url = URI.escape(url)
-    res = Nokogiri::HTML(RestClient.get(category_url))
+    res = RestClient.get(category_url)
+    doc = Nokogiri::HTML(res)
     File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-      file.write "------Nokogiri-----\n#{res}\n"
+      file.write "------Nokogiri-----\n#{doc}\n"
     end
 
-    res
+    doc
 
     # begin
     #   res = Nokogiri::HTML(RestClient::Request.execute(:url => category_url, :timeout => 100, :method => :get, :verify_ssl => false))
