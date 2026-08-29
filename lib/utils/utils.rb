@@ -5,10 +5,11 @@ module Utils
     doc = Nokogiri::HTML(res)
     @count += 1
     File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-      file.write "------Nokogiri-----\n#{@count}\n"
+      file.write "------Nokogiri-----\n#{@count}\n === #{url}"
     end
 
-    sleep 5
+
+    sleep 10
     doc
 
     # begin
