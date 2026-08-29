@@ -9,7 +9,7 @@ module Utils
     end
 
 
-    sleep 10
+    sleep 15
     doc
 
     # begin

@@ -28,7 +28,7 @@ class Services::Vendor::DpoUpdate
   end
 
   def get_products
-    [@categories.first].each do |category|
+    @categories.each do |category|
       category_url = category[:url]
       category_name = category[:name]
 
@@ -48,7 +48,7 @@ class Services::Vendor::DpoUpdate
       # p products_url
       # p category_url
       # p products_url.count
-      create_or_update_product([products_url.first], category_name)
+      create_or_update_product(products_url, category_name)
     end
   end
 
