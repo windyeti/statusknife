@@ -3,7 +3,7 @@ module Utils
     category_url = URI.escape(url)
     res = Nokogiri::HTML(RestClient.get(category_url))
     File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-      file.write "------Nokogiri-----#{res}\n#{res.code}\n#{res.body}\n"
+      file.write "------Nokogiri-----\n#{res}\n"
     end
 
     res
