@@ -8,6 +8,7 @@ module Utils
       file.write "------Nokogiri-----\n#{@count}\n"
     end
 
+    sleep 5
     doc
 
     # begin
