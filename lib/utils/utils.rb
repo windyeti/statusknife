@@ -3,8 +3,9 @@ module Utils
     category_url = URI.escape(url)
     res = RestClient.get(category_url)
     doc = Nokogiri::HTML(res)
+    @count += 1
     File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-      file.write "------Nokogiri-----\n#{doc}\n"
+      file.write "------Nokogiri-----\n#{@count}\n"
     end
 
     doc

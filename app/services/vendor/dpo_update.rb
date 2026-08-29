@@ -3,6 +3,7 @@ class Services::Vendor::DpoUpdate
 
   def initialize
     @domain_url = "https://www.d-po.ru"
+    @count = 0
   end
 
   def call
