@@ -18,15 +18,7 @@ class Services::Vendor::DpoUpdate
 
   def get_categories
     doc = get_doc(@domain_url)
-    if doc.present?
-      File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-        file.write "------TRUE-----#{doc}"
-      end
-    else
-      File.open("#{Rails.public_path}/errors_parse.txt", 'a') do |file|
-        file.write "----FALSE----#{doc}"
-      end
-    end
+
     @categories = doc.css("#brands_menu li a").map do |a|
       {
         name: a.text.strip,
